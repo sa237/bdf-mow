@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Meals On Wheels</string>
+
+
+    //Headings
+    <string name="heading_one_a">Zero</string>
+    <string name="heading_one_b">Community</string>
+    <string name="heading_one_c">Meals On Wheels</string>
+    <string name="heading_two_a">Food Wastage</string>
+    <string name="heading_two_b">Kitchen</string>
+    <string name="heading_two_c">India</string>
+
+
+    //Description
+    <string name="desc_one">Not to waste our basic need, food and helping communities to grow together.</string>
+    <string name="desc_two">Cooking Food everyday and serving it to ensure the Health Index doesn\'t go low for India.</string>
+    <string name="desc_three">Ensuring no stomach would stay hungry at Hospitals and Railway platforms.</string>
+
+    //About Us Text
+
+    <string name="about_us_first"> BDF envisages an inclusive and nurturing society and seeks to achieve this by developing and implementing innovative social welfare programmes which have a lasting positive impact on the lives of the most vulnerable populations. Our dream is to build a new India where people have the power to create opportunities for themselves and their communities.
+Our goal is to empower people and transform their lives by providing them with food, education, healthcare, and other resources essential to their livelihood.</string>
+
+    <string name="about_us_second">"Helping People To Help Themselves Grow" is the abiding motto of BDF.</string>
+
+    <string name="about_us_third">Since its inception, BDF has taken an initiative to enroll 35 dropout students in government schools under our "Back To School Program."
+        234 hunger drives have been conducted, whereby 7,00,000 free meals were distributed, reaching over 37,000 people.
+        The effort has been possible by way of collection of surplus food from celebrations or functions and accepting food grain donations from a mindful givers and generous donors.
+        Work through collection of surplus food from celebrations or functions, accepting food grain donations from our mindful givers and heartful donors.
+        We also conduct Happiness Drives where people celebrate their birthdays with children for a cause. In this way, we try to ensure that nobody, particularly children, do not go to bed hungry.</string>
+
+
+</resources>

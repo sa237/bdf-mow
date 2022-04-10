@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    app:flow_horizontalAlign="center">
+
+
+
+    <ImageView
+        android:id="@+id/titleImage"
+        android:layout_width="270dp"
+        android:layout_height="350dp"
+        android:src="@drawable/pic1"
+        android:clipToOutline="true"
+        android:background="@drawable/layout_bg"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp" />
+
+
+
+    <TextView
+        android:id="@+id/titleText_pt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/heading_one_a"
+        android:layout_marginLeft="40dp"
+        android:textSize="42sp"
+        />
+
+    <TextView
+        android:id="@+id/titleText_pt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/heading_two_a"
+        android:textSize="50sp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/descText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Bringing all type of things of need to people of all ages and genders."
+        android:textSize="16sp"
+        android:textColor="@color/black" />
+
+</LinearLayout>

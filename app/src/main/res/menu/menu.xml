@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Profile"
+        android:id="@+id/user_profile"/>
+
+    <item
+        android:title="Donate meals"
+        android:id="@+id/donate_meal_menu"/>
+    <item
+        android:title="About Us"
+        android:id="@+id/about_us_menu"/>
+
+    <item
+        android:title="Privacy Policy"
+        android:id="@+id/privacy_policy_menu"/>
+
+    <item
+        android:title="Share"
+        android:id="@+id/share_menu"/>
+
+    <item
+        android:title="Logout"
+        android:id="@+id/user_logout"/>
+
+
+
+</menu>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastel_blue"
+    tools:context=".Pickup.MealPickupMain">
+
+    <TextView
+        android:id="@+id/meal_pickup_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Meal Pickup"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textSize="45dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/meals_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meal_pickup_heading"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:text="Please initiate a pickup only for more than 30 meals."/>
+
+    <TextView
+        android:id="@+id/semi_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meals_text"
+        android:textColor="@color/white"
+        android:layout_marginLeft="32dp"
+        android:textSize="20dp"
+        android:text="Which type of organization are you?"/>
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radio_organization"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/semi_heading"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp">
+
+
+        <RadioButton
+            android:id="@+id/rb1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Hotel"
+            android:textColor="@color/white"
+            android:onClick="onRadioButtonClicked"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Banquet Hall"
+            android:textColor="@color/white"
+            android:onClick="onRadioButtonClicked"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:id="@+id/rb3"
+            android:onClick="onRadioButtonClicked"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Individual"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:id="@+id/rb4"
+            android:onClick="onRadioButtonClicked"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Others"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/others_mention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_32dp"
+        android:hint="If others , please mention"
+        android:inputType="textCapWords"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_organization" />
+    
+    <EditText
+        android:id="@+id/edt_txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/others_mention"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="@color/white"
+        android:hint="Enter name"
+        android:textSize="20dp"
+        android:inputType="textCapWords"
+        android:textColor="@color/white"/>
+
+
+
+
+
+
+    <Button
+        android:id="@+id/connectToAdminBtn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_txt_name"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_bg"
+        android:text="Connect to admins"
+        android:textColor="@color/white"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

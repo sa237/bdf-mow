@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "678106092024",
+    "project_id": "meal-app-e1877",
+    "storage_bucket": "meal-app-e1877.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678106092024:android:a1424684dd7d90cf19460d",
+        "android_client_info": {
+          "package_name": "com.example.mealapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678106092024-lrgik7q97thpcs58ssq8ilpu4qtru1oe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXXQySd0xmaZQuvUnG4BBoGM-Fi4pJz_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678106092024-lrgik7q97thpcs58ssq8ilpu4qtru1oe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678106092024:android:534b606228233bc319460d",
+        "android_client_info": {
+          "package_name": "com.hypertrack.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678106092024-lrgik7q97thpcs58ssq8ilpu4qtru1oe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXXQySd0xmaZQuvUnG4BBoGM-Fi4pJz_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678106092024-lrgik7q97thpcs58ssq8ilpu4qtru1oe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
