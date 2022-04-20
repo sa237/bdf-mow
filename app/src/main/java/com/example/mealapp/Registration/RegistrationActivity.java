@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealapp.AsteriskPasswordTransformationMethod;
 import com.example.mealapp.Login.LoginActivity;
+import com.example.mealapp.Pickup.MealPickupMain;
 import com.example.mealapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,16 +22,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText registerName, registerEmail, registerPassword, registerConfPassword;
-    Button registerBtn;
-    FirebaseAuth mAuth;
-    TextView alreadyAccount,adminRegister;
+    private EditText registerName, registerEmail, registerPassword, registerConfPassword;
+    private Button registerBtn;
+    private FirebaseAuth mAuth;
+    private TextView alreadyAccount,adminRegister;
+    private String token;
+
 
 
     @Override
@@ -54,6 +58,28 @@ public class RegistrationActivity extends AppCompatActivity {
 
         //Database variables
         mAuth = FirebaseAuth.getInstance();
+
+        //get the token of the user
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+
+                        // Log and toast
+                        System.out.println(token);
+                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("admin", "false");
+                            userInfo.put("token",token);
                             currentUserDb.updateChildren(userInfo);
 
 

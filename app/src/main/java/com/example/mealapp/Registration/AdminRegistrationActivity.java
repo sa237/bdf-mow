@@ -21,16 +21,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdminRegistrationActivity extends AppCompatActivity {
 
-    EditText adminName,adminEmail,adminPassword,adminConfPassword,adminCode;
-    Button adminBtn;
-    TextView adminAlreadyAccount;
-    FirebaseAuth fAuth;
+    private EditText adminName,adminEmail,adminPassword,adminConfPassword,adminCode;
+    private Button adminBtn;
+    private TextView adminAlreadyAccount;
+    private FirebaseAuth fAuth;
+    private String token;
 
 
 
@@ -51,6 +53,27 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         adminPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         adminConfPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
+
+        //get token of the user
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+
+                        // Log and toast
+                        System.out.println(token);
+                        Toast.makeText(AdminRegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         adminBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +129,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("admin", "true");
+                            userInfo.put("token", token);
                             currentUserDb.updateChildren(userInfo);
 
 

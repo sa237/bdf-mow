@@ -12,6 +12,8 @@
     <color name="pastel_yellow">#FDFFB6</color>
     <color name="pastel_orange">#FFC09F</color>
     <color name="off_white">#F6F6F6</color>
+    <color name="green_accept">#00FF00</color>
+    <color name="red_decline">#FF0000</color>
 
 
     //indicator color

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.mealapp.Donation.PaymentActivity;
 import com.example.mealapp.Login.LoginActivity;
+import com.example.mealapp.Main.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class UserProfile extends AppCompatActivity {
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
 

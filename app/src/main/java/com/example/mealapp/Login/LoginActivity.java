@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealapp.AsteriskPasswordTransformationMethod;
-import com.example.mealapp.MainActivity;
+import com.example.mealapp.Main.MainActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.Registration.RegistrationActivity;
 import com.example.mealapp.UserProfile;

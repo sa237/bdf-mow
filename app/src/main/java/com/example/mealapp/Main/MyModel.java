@@ -1,4 +1,4 @@
-package com.example.mealapp;
+package com.example.mealapp.Main;
 
 public class MyModel {
 

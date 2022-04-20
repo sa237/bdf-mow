@@ -1,6 +1,5 @@
 package com.example.mealapp.Pickup;
 
-
 import android.app.Activity;
 import android.content.Context;
 
@@ -11,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mealapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FcmNotificationsSender {
+public class FcmNotificationsSender  {
 
     String userFcmToken;
     String title;
@@ -41,8 +41,6 @@ public class FcmNotificationsSender {
 
     }
 
-
-
     public void SendNotifications() {
 
         requestQueue = Volley.newRequestQueue(mActivity);
@@ -52,7 +50,7 @@ public class FcmNotificationsSender {
             JSONObject notiObject = new JSONObject();
             notiObject.put("title", title);
             notiObject.put("body", body);
-            notiObject.put("icon", android.R.drawable.ic_popup_reminder); // enter icon that exists in drawable only
+            notiObject.put("icon", R.drawable.ic_notifications); // enter icon that exists in drawable only
 
 
 

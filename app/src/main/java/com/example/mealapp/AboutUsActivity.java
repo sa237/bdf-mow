@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mealapp.Main.MainActivity;
+
 public class AboutUsActivity extends AppCompatActivity {
 
     private Button fb,insta,yt,linkedIn, twitter;
@@ -68,7 +70,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AboutUsActivity.this,MainActivity.class));
+        startActivity(new Intent(AboutUsActivity.this, MainActivity.class));
         finish();
     }
 }

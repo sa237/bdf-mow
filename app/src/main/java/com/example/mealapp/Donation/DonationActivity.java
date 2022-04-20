@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mealapp.MainActivity;
+import com.example.mealapp.Main.MainActivity;
 import com.example.mealapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

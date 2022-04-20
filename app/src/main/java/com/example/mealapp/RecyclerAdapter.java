@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.mealapp.Donation.DonationActivity;
+import com.example.mealapp.Main.MyModel;
 import com.example.mealapp.Pickup.MealPickupMain;
 import com.example.mealapp.Registration.RegistrationActivity;
 
