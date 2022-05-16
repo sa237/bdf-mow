@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,8 +57,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 }
                 else if(holder.mClickableText.getText().equals("Get monthly subscription now")){
 
-                    Intent intent = new Intent(view.getContext(), RegistrationActivity.class);
-                    view.getContext().startActivity(intent);
+                    Toast.makeText(context, "This feature is unavailable for now. ", Toast.LENGTH_SHORT).show();
+
+//                    Intent intent = new Intent(view.getContext(), RegistrationActivity.class);
+//                    view.getContext().startActivity(intent);
 
                 }
 

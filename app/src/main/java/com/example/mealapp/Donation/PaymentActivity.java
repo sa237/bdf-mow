@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mealapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,7 @@ public class PaymentActivity extends AppCompatActivity {
     private RecyclerView.Adapter mPaymentAdapter;
     private RecyclerView.LayoutManager mPaymentLayoutManager;
     private String currentUserId;
+    private TextView noPaymentText;
 
 
 
@@ -37,6 +41,7 @@ public class PaymentActivity extends AppCompatActivity {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.hist_recycler);
+        noPaymentText = (TextView) findViewById(R.id.no_payment_text);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         mPaymentLayoutManager = new LinearLayoutManager(PaymentActivity.this);
@@ -68,6 +73,13 @@ public class PaymentActivity extends AppCompatActivity {
                         FetchPaymentInfo(payment.getKey());
 
                     }
+
+                }
+
+                else{
+                    noPaymentText.setVisibility(View.VISIBLE);
+                    noPaymentText.setText("No payments made yet.");
+                    //Toast.makeText(PaymentActivity.this, "No payments made yet. ", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -108,6 +120,9 @@ public class PaymentActivity extends AppCompatActivity {
 
 
                 }
+                else{
+                    Toast.makeText(PaymentActivity.this, "No payments made yet.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -119,6 +134,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private ArrayList<PaymentObject> resultPayments = new ArrayList<PaymentObject>();
     private List<PaymentObject> getDataSetMatches(){
+
 
         return resultPayments;
 

@@ -10,7 +10,8 @@
     <color name="dark_pastel_blue">#79ADDC</color>
     <color name="pastel_blue">#ABC4FF</color>
     <color name="pastel_yellow">#FDFFB6</color>
-    <color name="pastel_orange">#FFC09F</color>
+    <color name="pastell_orange">#FFC09F</color>
+    <color name="pastel_orange">#FEDE00</color>
     <color name="off_white">#F6F6F6</color>
     <color name="green_accept">#00FF00</color>
     <color name="red_decline">#FF0000</color>

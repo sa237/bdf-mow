@@ -17,10 +17,13 @@ import android.widget.Toast;
 import com.example.mealapp.AsteriskPasswordTransformationMethod;
 import com.example.mealapp.Main.MainActivity;
 import com.example.mealapp.R;
+import com.example.mealapp.Registration.AdminRegistrationActivity;
 import com.example.mealapp.Registration.RegistrationActivity;
 import com.example.mealapp.UserProfile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,13 +90,13 @@ public class LoginActivity extends AppCompatActivity {
                 //checking that the variables are non-empty
 
                 if(email.isEmpty()){
-                    loginEmail.setError("Email is missing");
+                    loginEmail.setError("Email is missing.");
                     return;
                 }
 
 
                 if(password.isEmpty()){
-                    loginPassword.setError("Password is missing");
+                    loginPassword.setError("Password is missing.");
                     return;
 
                 }
@@ -116,14 +120,17 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if(snapshot.exists()){
                                             if(snapshot.child("admin").getValue().equals("true")){
+
                                                 //Toast.makeText(LoginActivity.this,"Welcome admin",Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(getApplicationContext(), UserProfile.class));
-                                                Toast.makeText(getApplicationContext(),"Admins will be directed to this activity for now",Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                //Toast.makeText(getApplicationContext(),"Admins will be directed to this activity for now",Toast.LENGTH_SHORT).show();
                                                 finish();
 
 
                                             }
                                             else if(snapshot.child("admin").getValue().equals("false")){
+
+
                                                 //Toast.makeText(LoginActivity.this,"Welcome user",Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                                 finish();
@@ -144,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                 firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(),"Email is not verified. Code has been resent. Verify Email and login again.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Email is not verified. Code has been resent. Please verify Email and login again.",Toast.LENGTH_SHORT).show();
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

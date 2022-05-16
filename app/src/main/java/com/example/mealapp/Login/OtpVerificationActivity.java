@@ -23,6 +23,7 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
     private String name;
     private FirebaseAuth mAuth;
     private String otpId;
+    private String token;
 
 
 
@@ -48,6 +50,27 @@ public class OtpVerificationActivity extends AppCompatActivity {
         number = getIntent().getStringExtra("number").toString();
         name = getIntent().getStringExtra("name").toString();
         mAuth = FirebaseAuth.getInstance();
+
+
+        //get the token of the user
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+
+//                        // Log and toast
+//                        System.out.println(token);
+//                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
 
@@ -138,7 +161,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
                             if(creationTimeStamp == lastSignInTimeStamp){
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(getApplicationContext(),"New user signInWithCredential:success",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"New user signInWithCredential:success",Toast.LENGTH_SHORT).show();
 
                                 //save user data to database
 
@@ -147,6 +170,8 @@ public class OtpVerificationActivity extends AppCompatActivity {
                                 Map userInfo = new HashMap<>();
                                 userInfo.put("name", name);
                                 userInfo.put("admin", "false");
+                                userInfo.put("phoneNumber",number);
+                                userInfo.put("token",token);
                                 currentUserDb.updateChildren(userInfo);
 
 
@@ -160,7 +185,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
                             else{
 
                                 // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getApplicationContext(),"signInWithCredential:success",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),"signInWithCredential:success",Toast.LENGTH_SHORT).show();
 
 
 
@@ -173,7 +198,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
                         } else {
 
-                            Toast.makeText(getApplicationContext(),"signIn:failure",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"signIn:failure. Check if you have entered the correct phone number. ",Toast.LENGTH_SHORT).show();
 
                         }
                     }

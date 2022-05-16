@@ -12,14 +12,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 
+import com.example.mealapp.Main.MainActivity;
+import com.example.mealapp.UserPickup.UserPickupsActivity;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
-     NotificationManager mNotificationManager;
+    NotificationManager mNotificationManager;
+
 
 
     @Override
@@ -27,7 +31,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         super.onMessageReceived(remoteMessage);
 
 
-// playing audio and vibration when user se reques
+// playing audio and vibration when user se request
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
@@ -56,7 +60,18 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
 
-        Intent resultIntent = new Intent(this, AcceptanceActivity.class);
+        Intent resultIntent = new Intent();
+
+        if(remoteMessage.getData().get("activity").matches("ViewRequest")){
+
+            resultIntent = new Intent(this, UserPickupsActivity.class);
+        }
+        else if(remoteMessage.getData().get("activity").matches("Main")){
+
+            resultIntent = new Intent(this, MainActivity.class);
+        }
+
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
@@ -92,6 +107,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     }
 
-}
 
+
+
+}
 

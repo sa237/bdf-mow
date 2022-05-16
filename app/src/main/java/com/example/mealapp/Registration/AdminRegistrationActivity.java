@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hbb20.CountryCodePicker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,8 @@ public class AdminRegistrationActivity extends AppCompatActivity {
     private TextView adminAlreadyAccount;
     private FirebaseAuth fAuth;
     private String token;
+    private CountryCodePicker ccpForAdmin;
+    private EditText phoneNoAdmin;
 
 
 
@@ -49,10 +52,16 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         adminCode = findViewById(R.id.adminCode);
         adminBtn = findViewById(R.id.adminRegisterButton);
         adminAlreadyAccount = findViewById(R.id.adminAlreadyHaveAccount);
+        ccpForAdmin = (CountryCodePicker) findViewById(R.id.ccp_admin);
+        phoneNoAdmin = (EditText) findViewById(R.id.mobileno_admin);
+        ccpForAdmin.registerCarrierNumberEditText(phoneNoAdmin);
 
         fAuth = FirebaseAuth.getInstance();
         adminPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         adminConfPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
+
+
 
 
         //get token of the user
@@ -62,18 +71,21 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
+                            Toast.makeText(AdminRegistrationActivity.this, "Token fetching failed.", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         // Get new FCM registration token
                         token = task.getResult();
 
-                        // Log and toast
-                        System.out.println(token);
-                        Toast.makeText(AdminRegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
+//                        // Log and toast
+//                        System.out.println(token);
+//                        Toast.makeText(AdminRegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+
 
         adminBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,25 +100,31 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                 //checking that all the variables have value
 
                 if(name.isEmpty()){
-                    adminName.setError("Name is a required field");
+                    adminName.setError("Name is a required field.");
                     return;
                 }
 
                 if(email.isEmpty()){
-                    adminEmail.setError("E-mail is a required field");
+                    adminEmail.setError("E-mail is a required field.");
                     return;
                 }
                 if(password.isEmpty()){
-                    adminPassword.setError("Password is a required field");
+                    adminPassword.setError("Password is a required field.");
                     return;
                 }
                 if(confPassword.isEmpty()){
-                    adminConfPassword.setError("Type the same password here");
+                    adminConfPassword.setError("Type the same password here.");
                     return;
                 }
 
                 if(!password.equals(confPassword)){
-                    Toast.makeText(AdminRegistrationActivity.this,"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminRegistrationActivity.this,"Passwords do not match.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //checking validity of phone number
+                if(phoneNoAdmin.getText().toString().isEmpty()){
+                    phoneNoAdmin.setError("Enter a valid number");
                     return;
                 }
 
@@ -117,7 +135,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
 
                 }
 
-                Toast.makeText(AdminRegistrationActivity.this,"Data is validated",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AdminRegistrationActivity.this,"Data is validated",Toast.LENGTH_SHORT).show();
 
 
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -130,6 +148,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                             userInfo.put("name", name);
                             userInfo.put("admin", "true");
                             userInfo.put("token", token);
+                            userInfo.put("phoneNumber",ccpForAdmin.getFullNumberWithPlus().replace(" ",""));
                             currentUserDb.updateChildren(userInfo);
 
 

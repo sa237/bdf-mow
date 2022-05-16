@@ -12,10 +12,11 @@ import com.example.mealapp.R;
 
 import org.w3c.dom.Text;
 
+import java.text.BreakIterator;
+
 public class PaymentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView mDate,mMoney,mID;
-
 
 
     public PaymentViewHolder(@NonNull View itemView) {

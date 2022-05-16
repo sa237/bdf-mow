@@ -34,7 +34,7 @@ import static com.paytm.pgsdk.Constants.CHANNEL_ID;
 
 public class MealPickupMain extends AppCompatActivity {
 
-    private EditText name,othersMention;
+    private EditText othersMention;
     private Button checkMap;
     private RadioGroup orgType;
     private String mName;
@@ -49,7 +49,7 @@ public class MealPickupMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_pickup_main);
 
-        name = (EditText) findViewById(R.id.edt_txt_name);
+
         checkMap = (Button) findViewById(R.id.van_map_btn);
         othersMention = (EditText) findViewById(R.id.others_mention);
 
@@ -59,17 +59,9 @@ public class MealPickupMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String mName = name.getText().toString();
-
-                if(mName.isEmpty()){
-                    name.setError("Enter name.");
-                }
-
-                else{
-
                     startActivity(new Intent(getApplicationContext(),ViewMapActivity.class));
 
-                }
+
 
 
 
@@ -77,7 +69,7 @@ public class MealPickupMain extends AppCompatActivity {
         });
 
 
-        //FirebaseMessaging.getInstance().subscribeToTopic("all");
+
 
 
 
@@ -211,5 +203,11 @@ public class MealPickupMain extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
 }

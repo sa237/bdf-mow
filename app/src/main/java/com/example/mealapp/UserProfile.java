@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealapp.Acceptances.ChatsViewActivity;
 import com.example.mealapp.Donation.PaymentActivity;
 import com.example.mealapp.Login.LoginActivity;
 import com.example.mealapp.Main.MainActivity;
+import com.example.mealapp.UserPickup.UserPickupsActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,12 +39,13 @@ public class UserProfile extends AppCompatActivity {
     }
 
 
-    private TextView heading, resetPass,updateEmail,paymentHist , subHeading;
+    private Button resetPass,updateEmail,paymentHist,pickups,chats;
+    private TextView heading,subHeading;
     private AlertDialog.Builder reset_alert;
     private LayoutInflater inflater;
     private FirebaseAuth firebaseAuth;
     private String name,userId;
-    private DatabaseReference mDatabaseReference , mDatabaseMoneyReference;
+    private DatabaseReference mDatabaseReference , mDatabaseMoneyReference , mDatabasePickupReference;
 
 
     @Override
@@ -57,15 +61,37 @@ public class UserProfile extends AppCompatActivity {
         paymentHist = findViewById(R.id.setting_btn4);
         heading = findViewById(R.id.settings_heading);
         subHeading = findViewById(R.id.setting_heading_sub);
+        pickups = findViewById(R.id.setting_btn5);
+        chats = findViewById(R.id.setting_btn6);
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         mDatabaseMoneyReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("payments");
+        mDatabasePickupReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
         getHeading();
         getSubHeading();
+
+        DatabaseReference usersDb = mDatabasePickupReference.child(userId);
+
+        usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    if(snapshot.child("admin").getValue().equals("true")){
+                        pickups.setVisibility(View.VISIBLE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -144,6 +170,26 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+
+            }
+        });
+
+
+        pickups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), UserPickupsActivity.class));
+
+
+            }
+        });
+
+        chats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), ChatsViewActivity.class));
+                finish();
 
             }
         });

@@ -1,8 +1,11 @@
 package com.example.mealapp.Main;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +27,14 @@ import com.example.mealapp.Login.LoginActivity;
 import com.example.mealapp.Pickup.UserLocationActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.UserProfile;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -36,13 +46,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //private ViewPager viewPager;
     private ArrayList<MyModel> modelArrayList;
     //private RecyclerAdapter recyclerAdapter;
 
     private RecyclerView optionsRecyclerView,sponsorRecyclerView;
     private boolean isPermissionGranted;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
+
+
+
 
 
 //    ViewPager viewPager;
@@ -63,8 +80,27 @@ public class MainActivity extends AppCompatActivity  {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar  = findViewById(R.id.toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar  = findViewById(R.id.toolbar);
+
+        //toolbar
         setSupportActionBar(toolbar);
+
+        //navigation
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.user_profile);
+
+
+
+
+
 
         //optionsRecyclerView
         optionsRecyclerView = findViewById(R.id.recycler_view1);
@@ -95,12 +131,7 @@ public class MainActivity extends AppCompatActivity  {
         SponsorAdapter sponsorAdapter = new SponsorAdapter(imageList);
         sponsorRecyclerView.setAdapter(sponsorAdapter);
 
-        sponsorRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                sponsorRecyclerView.smoothScrollToPosition(sponsorAdapter.getItemCount() - 1);
-            }
-        });
+
 
 
 
@@ -156,7 +187,7 @@ public class MainActivity extends AppCompatActivity  {
         Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                Toast.makeText(MainActivity.this, "Granted", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Granted", Toast.LENGTH_SHORT).show();
                 isPermissionGranted = true;
 
             }
@@ -218,33 +249,92 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
-        if(doubleBackToExitPressedOnce){
-            finishAffinity();
-            finish();
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+
+            drawerLayout.closeDrawer(GravityCompat.START);
         }
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(getApplicationContext(),"Please click BACK again to exit",Toast.LENGTH_SHORT).show();
+        else{
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
+            if(doubleBackToExitPressedOnce){
+                finishAffinity();
+                finish();
             }
-        },2000);
 
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(getApplicationContext(),"Please click BACK again to exit",Toast.LENGTH_SHORT).show();
 
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            },2000);
 
+        }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu,menu);
+//
+//        return true;
+//
+//    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if(id == R.id.user_profile){
+//            startActivity(new Intent(MainActivity.this, UserProfile.class));
+//            finish();
+//        }
+//
+//        if(id == R.id.donate_meal_menu){
+//            startActivity(new Intent(MainActivity.this, DonationActivity.class));
+//            finish();
+//        }
+//
+//        if(id == R.id.about_us_menu){
+//
+//            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+//            finish();
+//        }
+//
+//        if(id == R.id.share_menu){
+//
+//            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            sharingIntent.setType("text/plain");
+//            String shareBody = "Share the app with your friends and family.";
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share now");
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//
+//
+//        }
+//
+//
+//
+//        if(id == R.id.user_logout){
+//
+//            FirebaseAuth.getInstance().signOut();
+//            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//            finish();
+//
+//        }
+//
+//
+//        return true;
+//
+//
+//
+//
+//    }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         int id = item.getItemId();
 
         if(id == R.id.user_profile){
@@ -284,11 +374,7 @@ public class MainActivity extends AppCompatActivity  {
             finish();
 
         }
-
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-
-
-
-
     }
 }

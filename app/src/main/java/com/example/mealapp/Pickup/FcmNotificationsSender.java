@@ -23,22 +23,20 @@ public class FcmNotificationsSender  {
     String userFcmToken;
     String title;
     String body;
-    Context mContext;
     Activity mActivity;
+    String toGo;
 
 
     private RequestQueue requestQueue;
     private final String postUrl = "https://fcm.googleapis.com/fcm/send";
     private final String fcmServerKey ="AAAAneJF0fg:APA91bGQKi-3y2ZFZkxJxQ45Xwpt1vjvAedlWL2cAelU3qyPeVLs7oKF63HDLEwu7cIMbHRwDqmlSz_ZNyJmIdY1R14mgN3qqC62HvZE4TORiqTbeqlWIYSQwX4xdEatVtYv_M4-RJYf";
 
-    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity) {
+    public FcmNotificationsSender(String userFcmToken, String title, String body, Activity mActivity, String toGo) {
         this.userFcmToken = userFcmToken;
         this.title = title;
         this.body = body;
-        this.mContext = mContext;
         this.mActivity = mActivity;
-
-
+        this.toGo = toGo;
     }
 
     public void SendNotifications() {
@@ -54,7 +52,14 @@ public class FcmNotificationsSender  {
 
 
 
+
+
+            JSONObject extra_data = new JSONObject();
+            extra_data.put("activity",toGo);
+
+
             mainObj.put("notification", notiObject);
+            mainObj.put("data", extra_data);
 
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, postUrl, mainObj, new Response.Listener<JSONObject>() {

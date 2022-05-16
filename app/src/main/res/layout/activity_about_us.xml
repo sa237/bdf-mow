@@ -19,6 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:text="About Us"
             android:textColor="@color/white"

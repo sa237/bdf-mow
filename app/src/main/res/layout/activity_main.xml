@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".Main.MainActivity">
+    android:id="@+id/drawer_layout"
+    tools:context=".Main.MainActivity"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/menu"
+        android:layout_gravity="start"/>
+
 
 
     <ScrollView
@@ -31,17 +41,19 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/toolbar"
                 android:background="@color/pastel_blue"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:elevation="4dp"
                 android:theme="@style/Theme.MealApp"
-                app:title="Meals on Wheels"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/menu_icon"
+                app:title="AAHARAH"
                 app:titleMarginStart="40dp"
-                app:titleTextColor="@color/white"/>
+                app:titleTextColor="@color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view1"
@@ -54,6 +66,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:flow_horizontalBias="0.5"/>
+
+
 
 
 
@@ -82,7 +96,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:flow_horizontalBias="0.5"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view2">
+
+                <ImageView
+                    android:id="@+id/log"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/bdflogo" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/log"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_weight="1"
+                    android:text="Building Dreams Foundation (BDF) promotes the social development of disadvantaged children and communities"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
@@ -134,7 +185,7 @@
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 

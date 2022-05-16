@@ -100,6 +100,47 @@
             app:layout_constraintStart_toStartOf="@+id/setting_btn3"
             app:layout_constraintTop_toBottomOf="@+id/setting_btn3" />
 
+        <Button
+            android:id="@+id/setting_btn6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="View Chats"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@id/setting_btn4"
+            app:layout_constraintStart_toStartOf="@+id/setting_btn4"
+            app:layout_constraintTop_toBottomOf="@+id/setting_btn4" />
+
+
+
+
+
+        <Button
+            android:id="@+id/setting_btn5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="View Pickups"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/setting_btn6"
+            app:layout_constraintStart_toStartOf="@+id/setting_btn6"
+            app:layout_constraintTop_toBottomOf="@+id/setting_btn6" />
+
+
+
 
 
 

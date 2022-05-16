@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.core:core:1.7.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.razorpay:checkout:1.6.4'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //paytm sdk dependency
     implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.8'
@@ -91,7 +92,7 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 //    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.karumi:dexter:6.2.3'
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealapp.AsteriskPasswordTransformationMethod;
 import com.example.mealapp.Login.LoginActivity;
+import com.example.mealapp.Main.MainActivity;
 import com.example.mealapp.Pickup.MealPickupMain;
 import com.example.mealapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hbb20.CountryCodePicker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +37,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView alreadyAccount,adminRegister;
     private String token;
+    private CountryCodePicker ccpForEmail;
+    private EditText phoneNo;
+
+
 
 
 
@@ -50,11 +57,19 @@ public class RegistrationActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerButton);
         alreadyAccount = findViewById(R.id.alreadyHaveAccount);
         adminRegister = findViewById(R.id.reg_admin);
+        phoneNo = (EditText) findViewById(R.id.mobileno_email);
+        ccpForEmail = (CountryCodePicker) findViewById(R.id.ccp_email);
+        ccpForEmail.registerCarrierNumberEditText(phoneNo);
 
         //to replace password with *
 
         registerPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         registerConfPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
+        //checking validity of phone number
+
+
+       // no = ccpForEmail.getFullNumberWithPlus().replace(" ","");
 
         //Database variables
         mAuth = FirebaseAuth.getInstance();
@@ -73,11 +88,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         // Get new FCM registration token
                         token = task.getResult();
 
-                        // Log and toast
-                        System.out.println(token);
-                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
+//                        // Log and toast
+//                        System.out.println(token);
+//                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
 
 
 
@@ -111,7 +128,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
                 if(!password.equals(confPassword)){
-                    Toast.makeText(RegistrationActivity.this,"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this,"Passwords do not match.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(phoneNo.getText().toString().isEmpty()){
+                    phoneNo.setError("Enter a valid number");
                     return;
                 }
 
@@ -125,6 +147,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("admin", "false");
+                            userInfo.put("phoneNumber",ccpForEmail.getFullNumberWithPlus().replace(" ",""));
                             userInfo.put("token",token);
                             currentUserDb.updateChildren(userInfo);
 
@@ -196,5 +219,21 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null && FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
+//        else{
+//            Toast.makeText(this, "Email not verified. Please verify email and then login.", Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+//            finish();
+//        }
     }
 }

@@ -121,21 +121,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radio_organization" />
 
-        <EditText
-            android:id="@+id/edt_txt_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/others_mention"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:textColorHint="@color/white"
-            android:hint="Enter name"
-            android:textSize="20dp"
-            android:inputType="textCapWords"
-            android:textColor="@color/white"/>
+
 
 
         <TextView
@@ -144,7 +130,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_txt_name"
+            app:layout_constraintTop_toBottomOf="@+id/others_mention"
             android:text="Before you proceed, checkout the positions of our pickup vans to find the estimated time for meal pickup."
             android:textColor="@color/white"
             android:layout_marginTop="40dp"

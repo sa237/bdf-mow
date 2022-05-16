@@ -25,8 +25,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"
-        android:text="If you wish to send request to the admin for a meal pickup, please click the button below to proceed.The admin will accept/reject your request based on availability within 10 minutes."
-        android:layout_marginTop="20dp"
+        android:text="If you wish to send request to the admin for a meal pickup, please click the button below and provide the details of meals."
+        android:layout_marginTop="30dp"
         android:textColor="@color/white"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="@dimen/dimen_10dp"
@@ -40,12 +40,12 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:text="Connect to admins"
+        android:text="Provide Details"
         android:textSize="@dimen/dimen_20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info_txt"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="30dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

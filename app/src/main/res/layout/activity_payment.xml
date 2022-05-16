@@ -5,8 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/pastel_blue"
     tools:context=".Donation.PaymentActivity">
+
+    <TextView
+        android:id="@+id/no_payment_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:visibility="gone" />
+
 
 <!--    <TextView-->
 <!--        android:layout_width="match_parent"-->

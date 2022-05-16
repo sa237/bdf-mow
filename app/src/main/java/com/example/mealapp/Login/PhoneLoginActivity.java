@@ -33,12 +33,12 @@ public class PhoneLoginActivity extends AppCompatActivity {
         ccp.registerCarrierNumberEditText(phoneNumber);
 
         if(userName.getText().toString().isEmpty()){
-            Toast.makeText(this, "Enter a username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a username.", Toast.LENGTH_SHORT).show();
         }
 
         if(phoneNumber.getText().toString().isEmpty()){
 
-            Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
         }
         getOtp.setOnClickListener(new View.OnClickListener() {
             @Override

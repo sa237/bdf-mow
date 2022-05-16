@@ -1,28 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="Profile"
-        android:id="@+id/user_profile"/>
 
-    <item
-        android:title="Donate meals"
-        android:id="@+id/donate_meal_menu"/>
-    <item
-        android:title="About Us"
-        android:id="@+id/about_us_menu"/>
 
-    <item
-        android:title="Privacy Policy"
-        android:id="@+id/privacy_policy_menu"/>
+    <group android:checkableBehavior="single">
 
-    <item
-        android:title="Share"
-        android:id="@+id/share_menu"/>
+        <item
+            android:title="Profile">
 
-    <item
-        android:title="Logout"
-        android:id="@+id/user_logout"/>
+            <menu>
+                <item
+                    android:id="@+id/user_profile"
+                    android:title="Profile"
+                    android:icon="@drawable/profile_icon"/>
+
+                <item
+                    android:title="Logout"
+                    android:id="@+id/user_logout"
+                    android:icon="@drawable/logout_icon"/>
+
+
+
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:title="Donate meals"
+            android:id="@+id/donate_meal_menu"
+            android:icon="@drawable/meal_icon"/>
+        <item
+            android:title="About Us"
+            android:id="@+id/about_us_menu"
+            android:icon="@drawable/book_icon"/>
+
+        <item
+            android:title="Privacy Policy"
+            android:id="@+id/privacy_policy_menu"
+            android:icon="@drawable/book_icon"/>
+
+
+
+
+    </group>
+
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Communicate">
+
+            <menu>
+                <item
+                    android:title="Share"
+                    android:id="@+id/share_menu"
+                    android:icon="@drawable/share_icon"/>
+
+
+
+            </menu>
+        </item>
+    </group>
 
 
 

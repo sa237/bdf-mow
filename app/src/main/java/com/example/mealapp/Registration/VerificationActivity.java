@@ -36,7 +36,7 @@ public class VerificationActivity extends AppCompatActivity {
                 mAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(VerificationActivity.this,"Verification Email Sent.Verify email and login",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(VerificationActivity.this,"Verification Email Sent. Verify email and login",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
                     }

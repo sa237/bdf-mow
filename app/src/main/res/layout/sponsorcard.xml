@@ -12,6 +12,8 @@
         android:scaleType="fitXY"
         android:src="@drawable/sponsor1"
         android:id="@+id/sponsor_images"
+        android:background="#000000"
+        android:padding="1dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

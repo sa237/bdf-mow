@@ -38,21 +38,6 @@
             android:layout_marginTop="5dp"/>
 
 
-        <EditText
-            android:id="@+id/form_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pickup_heading_text"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:textColorHint="@color/white"
-            android:hint="Enter name"
-            android:textSize="20dp"
-            android:inputType="textCapWords"
-            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/form_mealnumber"
@@ -60,8 +45,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/form_name"
-            android:layout_marginTop="@dimen/dimen_20dp"
+            app:layout_constraintTop_toBottomOf="@id/pickup_heading_text"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="@dimen/dimen_32dp"
             android:layout_marginEnd="@dimen/dimen_32dp"
             android:hint="Estimated number of servings"
@@ -96,7 +81,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_mealnumber"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:text="Mention the type of food. You can select one or both."
             android:gravity="center"
             android:layout_marginTop="30dp"
@@ -143,7 +127,6 @@
             app:layout_constraintTop_toBottomOf="@+id/checkbox1_layout"
             android:textSize="@dimen/dimen_20dp"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:layout_marginTop="30dp"
             android:text="Select the food items available"
             android:gravity="center"/>
@@ -225,10 +208,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/provide_location_heading"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="30dp"
             android:textSize="@dimen/dimen_20dp"
             android:background="@drawable/btn_bg"
             android:text="Provide location"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:textColor="@color/white"/>
 
 
