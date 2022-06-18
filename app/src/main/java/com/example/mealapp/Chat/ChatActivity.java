@@ -30,9 +30,8 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView.Adapter chatsAdapter;
     private RecyclerView.LayoutManager chatsManager;
     private String currentUserId , userIdFromIntent,chatId;
-
     private EditText mSendEditText;
-    private Button mSendButton;
+    private Button mSendButton,mAutoSendButton;
     DatabaseReference mDatabaseUser , mDatabaseChat,mCheckIfAdmin;
     String adminId;
 
@@ -54,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         chatsRecyclerView.setAdapter(chatsAdapter);
         mSendEditText = (EditText) findViewById(R.id.message_box);
         mSendButton = (Button) findViewById(R.id.text_send_btn);
+        mAutoSendButton = (Button) findViewById(R.id.text_auto_send_btn);
 
         //check if the current user is an admin or not
         mCheckIfAdmin = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
@@ -62,6 +62,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     if(snapshot.child("admin").getValue().toString().equals("true")){
+                        mAutoSendButton.setVisibility(View.VISIBLE);
                         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("acceptances").child(userIdFromIntent).child("chatId");
                         getChatId();
 
@@ -91,10 +92,19 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        mAutoSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendAutoMessage();
+            }
+        });
+
 
 
 
     }
+
+
 
     private void getChatId(){
         mDatabaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -157,6 +167,17 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+    }
+    private void sendAutoMessage() {
+        String autoMessageText = "Your order has been picked up. Thank you for setting up your order. The food will be delivered safely. Have a great day ahead!";
+        DatabaseReference newMessageDb = mDatabaseChat.push();
+
+        Map newMessage = new HashMap();
+        newMessage.put("createdByUser",currentUserId);
+        newMessage.put("text",autoMessageText);
+
+        newMessageDb.setValue(newMessage);
+
     }
 
     private void sendMessage() {

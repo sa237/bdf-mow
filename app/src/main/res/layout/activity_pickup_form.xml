@@ -194,12 +194,76 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkbox2_layout"
             android:textColor="@color/white"
-            android:text="Please provide your location for the pickup."
+            android:text="Please provide your address for the pickup."
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:textSize="@dimen/dimen_20dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginEnd="@dimen/dimen_10dp"/>
+
+        <EditText
+            android:id="@+id/form_flat_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/provide_location_heading"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:hint="Flat,House no.,Building,Company,Apartment"
+            android:textSize="@dimen/dimen_20dp"
+            android:inputType="textCapWords"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
+        <EditText
+            android:id="@+id/form_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/form_flat_number"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:hint="Area,Street,Sector,Village"
+            android:textSize="@dimen/dimen_20dp"
+            android:inputType="textCapWords"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/form_town"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/form_area"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:hint="Town/City"
+            android:textSize="@dimen/dimen_20dp"
+            android:inputType="textCapWords"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
+        <EditText
+            android:id="@+id/form_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/form_town"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:hint="State"
+            android:textSize="@dimen/dimen_20dp"
+            android:inputType="textCapWords"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
+
+
 
         <Button
             android:id="@+id/provide_location_btn"
@@ -207,12 +271,12 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/provide_location_heading"
+            app:layout_constraintTop_toBottomOf="@id/form_state"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="30dp"
             android:textSize="@dimen/dimen_20dp"
             android:background="@drawable/btn_bg"
-            android:text="Provide location"
+            android:text="Submit Details"
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:textColor="@color/white"/>
 

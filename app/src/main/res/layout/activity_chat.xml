@@ -35,15 +35,28 @@
             android:hint="Message..."
             android:id="@+id/message_box"
             />
+
         <Button
-            android:id="@+id/text_send_btn"
+            android:id="@+id/text_auto_send_btn"
             android:layout_weight="0.2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:textColor="@color/white"
+            android:visibility="gone"
+            android:text="Done"
+            android:backgroundTint="@color/pastel_orange"/>
+        <Button
+            android:id="@+id/text_send_btn"
+            android:layout_weight="0.2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/btn_bg"
+            android:textColor="@color/white"
             android:text="Send"
             android:backgroundTint="@color/pastel_orange"/>
+
 
 
     </LinearLayout>

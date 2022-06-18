@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                 firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(),"Email is not verified. Code has been resent. Please verify Email and login again.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Email is not verified. Link has been resent. Please verify email and login again.",Toast.LENGTH_SHORT).show();
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

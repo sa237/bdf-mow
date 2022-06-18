@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.mealapp.Pickup.AcceptanceActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.UserProfile;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,19 +26,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserPickupsActivity extends AppCompatActivity implements RecyclerViewInterface {
     private RecyclerView userPickupRecyclerView;
     private TextView noUserPickupText;
     private RecyclerView.Adapter mPickupsAdapter;
     private RecyclerView.LayoutManager mPickupsLayoutManager;
-    private String date , userName,noOfMeals,id ;
+    private String date , userName,noOfMeals,id,location;
     private String userIdForIntent;
-    private String latitudeForIntent, longitudeForIntent;
+    private Date dateFormat;
 
 
 
@@ -58,6 +64,20 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
 
 
+
+
+
+//        Collections.sort(resultPickups, new Comparator<UserPickupsObject>() {
+//            public int compare(UserPickupsObject o1, UserPickupsObject o2) {
+//                return o1.getDate().compareTo(o2.getDate());
+//            }
+//        });
+//
+//        //reverse the list to bring the recent request at the top
+//        Collections.reverse(resultPickups);
+
+
+
         mPickupsLayoutManager = new LinearLayoutManager(UserPickupsActivity.this);
         userPickupRecyclerView.setLayoutManager(mPickupsLayoutManager);
         mPickupsAdapter = new UserPickupsAdapter(getDataMatches(),UserPickupsActivity.this,this);
@@ -67,6 +87,11 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
 
     }
+
+
+
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+
 
     private void getUserPickupData() {
 
@@ -83,7 +108,12 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
                             FetchUserPickupInfo(dataSnapshot.getKey());
 
                         }
-                    } }}
+                    }
+
+
+                }}
+
+
 
             //                        FetchUserPickupInfo(dataSnapshot.getKey());
 
@@ -93,6 +123,8 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
             }
         });
     }
+
+
 
     private void FetchUserPickupInfo(String userId) {
 
@@ -106,6 +138,9 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
                     for(DataSnapshot dsnForEveryPickup : snapshot.getChildren()){
                         getDataFromDb(userId,dsnForEveryPickup.getKey());
                     }
+
+
+
                 }
 
             }
@@ -162,6 +197,11 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
 //        date = keyDate;
 //        id = keyUser;
+        try {
+            dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(keyDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         DatabaseReference ref_for_username = FirebaseDatabase.getInstance().getReference().child("Users").child(keyUser);
         ref_for_username.addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -171,20 +211,19 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
                     userName = snapshot.child("name").getValue().toString();
                     noOfMeals = snapshot.child("pickups").child(keyDate).child("numberOfMeals").getValue().toString();
-                    latitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("latitude").getValue().toString();
-                    longitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("longitude").getValue().toString();
+                    location = snapshot.child("pickups").child(keyDate).child("location").getValue().toString();
+//                    latitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("latitude").getValue().toString();
+//                    longitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("longitude").getValue().toString();
 
-                    UserPickupsObject object = new UserPickupsObject(keyDate,noOfMeals,userName,keyUser);
+                    UserPickupsObject object = new UserPickupsObject(keyDate,noOfMeals,userName,keyUser,location);
                     resultPickups.add(object);
 
-                    Collections.sort(resultPickups, new Comparator<UserPickupsObject>() {
-                        public int compare(UserPickupsObject o1, UserPickupsObject o2) {
-                            return o1.getDate().compareTo(o2.getDate());
-                        }
-                    });
 
-                    //reverse the list to bring the recent request at the top
-                    Collections.reverse(resultPickups);
+
+
+//
+//                    //reverse the list to bring the recent request at the top
+//                    Collections.reverse(resultPickups);
 
                     mPickupsAdapter.notifyDataSetChanged();
 
@@ -265,10 +304,8 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 //    }
 
     private ArrayList<UserPickupsObject> resultPickups = new ArrayList<UserPickupsObject>();
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<UserPickupsObject> getDataMatches(){
-
-
-
         return resultPickups;
     }
 
@@ -292,8 +329,8 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
                     Intent in = new Intent(getApplicationContext(),AcceptanceActivity.class);
                     in.putExtra("userId",resultPickups.get(position).getId());
                     in.putExtra("date",resultPickups.get(position).getDate());
-                    in.putExtra("latitude",latitudeForIntent);
-                    in.putExtra("longitude",longitudeForIntent);
+//                    in.putExtra("latitude",latitudeForIntent);
+//                    in.putExtra("longitude",longitudeForIntent);
                     startActivity(in);
                     finish();
 

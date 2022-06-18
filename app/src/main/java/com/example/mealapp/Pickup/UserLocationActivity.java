@@ -82,6 +82,7 @@ public class UserLocationActivity extends AppCompatActivity {
     private Button submitDetails;
     private Calendar calendar;
     SimpleDateFormat simpleDateFormat;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
 
 

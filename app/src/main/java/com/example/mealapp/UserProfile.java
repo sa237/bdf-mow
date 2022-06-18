@@ -3,6 +3,7 @@ package com.example.mealapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +41,15 @@ public class UserProfile extends AppCompatActivity {
     }
 
 
-    private Button resetPass,updateEmail,paymentHist,pickups,chats;
+    private TextView resetPass,updateEmail,paymentHist,pickups,chats;
     private TextView heading,subHeading;
     private AlertDialog.Builder reset_alert;
     private LayoutInflater inflater;
     private FirebaseAuth firebaseAuth;
     private String name,userId;
     private DatabaseReference mDatabaseReference , mDatabaseMoneyReference , mDatabasePickupReference;
+    private LinearLayout invisible_lin_layout;
+    private CardView resetPassCard,updateEmailCard,paymentHistoryCard,viewChatsCard,viewPickupsCard;
 
 
     @Override
@@ -56,13 +60,22 @@ public class UserProfile extends AppCompatActivity {
         inflater = this.getLayoutInflater();
         reset_alert = new AlertDialog.Builder(this);
         firebaseAuth = FirebaseAuth.getInstance();
-        resetPass = findViewById(R.id.setting_btn2);
-        updateEmail = findViewById(R.id.setting_btn3);
-        paymentHist = findViewById(R.id.setting_btn4);
+        resetPass = findViewById(R.id.reset_password_text);
+        updateEmail = findViewById(R.id.update_email_text);
+        paymentHist = findViewById(R.id.payment_hist_text);
         heading = findViewById(R.id.settings_heading);
         subHeading = findViewById(R.id.setting_heading_sub);
-        pickups = findViewById(R.id.setting_btn5);
-        chats = findViewById(R.id.setting_btn6);
+        pickups = findViewById(R.id.view_pickup_text);
+        chats = findViewById(R.id.view_Chat_text);
+        invisible_lin_layout = (LinearLayout) findViewById(R.id.invisible_linear_layout);
+        resetPassCard = (CardView) findViewById(R.id.card_resetPass);
+        updateEmailCard = findViewById(R.id.card_update_email);
+        paymentHistoryCard = findViewById(R.id.card_payment_history);
+        viewChatsCard = findViewById(R.id.card_view_chats);
+        viewPickupsCard = findViewById(R.id.card_view_pickups);
+
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
@@ -74,6 +87,9 @@ public class UserProfile extends AppCompatActivity {
         getHeading();
         getSubHeading();
 
+
+
+
         DatabaseReference usersDb = mDatabasePickupReference.child(userId);
 
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,7 +97,7 @@ public class UserProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     if(snapshot.child("admin").getValue().equals("true")){
-                        pickups.setVisibility(View.VISIBLE);
+                        invisible_lin_layout.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -98,16 +114,22 @@ public class UserProfile extends AppCompatActivity {
 
         
 
-        resetPass.setOnClickListener(new View.OnClickListener() {
+//        resetPass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getApplicationContext(),ResetPasswordActivity.class));
+//
+//
+//            }
+//        });
+        resetPassCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ResetPasswordActivity.class));
-
-
             }
         });
 
-        updateEmail.setOnClickListener(new View.OnClickListener() {
+        updateEmailCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -166,7 +188,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        paymentHist.setOnClickListener(new View.OnClickListener() {
+        paymentHistoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
@@ -175,7 +197,7 @@ public class UserProfile extends AppCompatActivity {
         });
 
 
-        pickups.setOnClickListener(new View.OnClickListener() {
+        viewPickupsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserPickupsActivity.class));
@@ -184,7 +206,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        chats.setOnClickListener(new View.OnClickListener() {
+        viewChatsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

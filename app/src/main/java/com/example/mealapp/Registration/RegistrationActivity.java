@@ -225,10 +225,15 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() != null && FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
         }
+
+//        if(FirebaseAuth.getInstance().getCurrentUser() != null && FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//            finish();
+//        }
 
 //        else{
 //            Toast.makeText(this, "Email not verified. Please verify email and then login.", Toast.LENGTH_SHORT).show();

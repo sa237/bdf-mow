@@ -19,9 +19,12 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.mealapp.AboutUsActivity;
+import com.example.mealapp.Acceptances.ChatsViewActivity;
 import com.example.mealapp.Donation.DonationActivity;
 import com.example.mealapp.Login.LoginActivity;
 import com.example.mealapp.Pickup.UserLocationActivity;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private ScrollView scrollView;
 
 
 
@@ -84,6 +88,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar  = findViewById(R.id.toolbar);
+        scrollView = findViewById(R.id.main_scroll);
+
+
+        //check if the email is verified and then make the items visible
+
+        if(FirebaseAuth.getInstance().getCurrentUser().getEmail() != null){
+
+            if(FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+                navigationView.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.VISIBLE);
+            }
+            else{
+                Toast.makeText(this, "Email Not verified!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            navigationView.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.VISIBLE);
+
+        }
+
+
 
         //toolbar
         setSupportActionBar(toolbar);
@@ -113,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sponsorRecyclerView.setHasFixedSize(true);
         sponsorRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-        checkLocPermission();
+        //checkLocPermission();
 
 
 
@@ -182,34 +209,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void checkLocPermission() {
-
-        Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
-            @Override
-            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                //Toast.makeText(MainActivity.this, "Granted", Toast.LENGTH_SHORT).show();
-                isPermissionGranted = true;
-
-            }
-
-            @Override
-            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), "");
-                intent.setData(uri);
-                startActivity(intent);
-
-            }
-
-            @Override
-            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                permissionToken.continuePermissionRequest();
-
-
-            }
-        }).check();
-    }
+//    private void checkLocPermission() {
+//
+//        Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
+//            @Override
+//            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+//                //Toast.makeText(MainActivity.this, "Granted", Toast.LENGTH_SHORT).show();
+//                isPermissionGranted = true;
+//
+//            }
+//
+//            @Override
+//            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+//                Intent intent = new Intent();
+//                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                Uri uri = Uri.fromParts("package", getPackageName(), "");
+//                intent.setData(uri);
+//                startActivity(intent);
+//
+//            }
+//
+//            @Override
+//            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+//                permissionToken.continuePermissionRequest();
+//
+//
+//            }
+//        }).check();
+//    }
 
 
     private void loadCards() {
@@ -341,6 +368,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, UserProfile.class));
             finish();
         }
+        if (id == R.id.chat){
+            startActivity(new Intent(MainActivity.this, ChatsViewActivity.class));
+            finish();
+        }
 
         if(id == R.id.donate_meal_menu){
             startActivity(new Intent(MainActivity.this, DonationActivity.class));
@@ -351,6 +382,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
             finish();
+        }
+
+        if(id == R.id.privacy_policy_menu){
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse("file:///C:/Users/ASUS/Downloads/PRIVACY-NOTICE.html"));
+            startActivity(browserIntent);
+            
         }
 
         if(id == R.id.share_menu){

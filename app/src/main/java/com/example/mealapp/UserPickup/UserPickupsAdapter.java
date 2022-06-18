@@ -43,13 +43,15 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         //final UserPickupsObject modelItems = userPickupsObjectList.get(position);
+        //Collections.sort(userPickupsObjectList);
 
 
 
         holder.mDates.setText("Date: " + userPickupsObjectList.get(position).getDate());
         holder.mFood.setText("Username: "+ userPickupsObjectList.get(position).getFood());
         holder.mNoOfMeals.setText("Number of Meals: " + userPickupsObjectList.get(position).getNoOfMeals());
-        holder.usersId.setText("UserId: " + userPickupsObjectList.get(position).getId());
+        holder.mId.setText("UserId: " + userPickupsObjectList.get(position).getId());
+        holder.mLocation.setText("Location: " + userPickupsObjectList.get(position).getLocation());
 
 
 
@@ -61,7 +63,7 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView mDates,mFood,mNoOfMeals, usersId;
+        public TextView mDates,mFood,mNoOfMeals, mId,mLocation;
 
         public MyViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -69,7 +71,8 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
             mDates = (TextView) itemView.findViewById(R.id.user_pickup_date);
             mFood = (TextView) itemView.findViewById(R.id.user_pickup_food);
             mNoOfMeals = (TextView) itemView.findViewById(R.id.user_pickup_number_meals);
-            usersId = (TextView) itemView.findViewById(R.id.user_userid);
+            mId = (TextView) itemView.findViewById(R.id.user_userId);
+            mLocation = (TextView) itemView.findViewById(R.id.user_location);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

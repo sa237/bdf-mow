@@ -71,9 +71,22 @@
                 android:textSize="20dp"
                 android:layout_gravity="center"
                 android:paddingBottom="20sp"/>
+            <TextView
+                android:id="@+id/user_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_pickup_food"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:paddingBottom="20sp"/>
+
 
             <TextView
-                android:id="@+id/user_userid"
+                android:id="@+id/user_userId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

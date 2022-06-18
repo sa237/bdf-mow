@@ -51,22 +51,38 @@
         android:textSize="15dp"
         android:layout_marginTop="40dp"/>
 
-    <fragment
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/user_loc_final"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_text_from_db"
+        android:gravity="center_horizontal"
+        android:textSize="25dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_loc_heading"
+        app:layout_constraintTop_toBottomOf="@+id/user_loc_heading"
         android:layout_marginTop="@dimen/dimen_10dp"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"/>
+
+
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:id="@+id/user_loc_final"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/user_loc_heading"-->
+<!--        android:layout_marginTop="@dimen/dimen_10dp"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
 
     <Button
         android:id="@+id/accept_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_loc_final"
+        app:layout_constraintTop_toBottomOf="@+id/location_text_from_db"
         android:layout_marginTop="@dimen/dimen_60dp"
         android:layout_marginLeft="40dp"
         android:backgroundTint="@color/green_accept"
@@ -82,7 +98,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_loc_final"
+        app:layout_constraintTop_toBottomOf="@+id/location_text_from_db"
         android:background="@drawable/layout_bg"
         android:layout_marginTop="@dimen/dimen_60dp"
         android:layout_marginEnd="40dp"

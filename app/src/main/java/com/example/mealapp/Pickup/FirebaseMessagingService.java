@@ -66,7 +66,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
             resultIntent = new Intent(this, UserPickupsActivity.class);
         }
-        else if(remoteMessage.getData().get("activity").matches("Main")){
+        if(remoteMessage.getData().get("activity").matches("Main")){
 
             resultIntent = new Intent(this, MainActivity.class);
         }

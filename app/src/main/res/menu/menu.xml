@@ -16,6 +16,11 @@
                     android:icon="@drawable/profile_icon"/>
 
                 <item
+                    android:id="@+id/chat"
+                    android:title="Chats"
+                    android:icon="@drawable/chat_icon"/>
+
+                <item
                     android:title="Logout"
                     android:id="@+id/user_logout"
                     android:icon="@drawable/logout_icon"/>
