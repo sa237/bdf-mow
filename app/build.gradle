@@ -3,24 +3,48 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
 
-    defaultConfig {
-        applicationId "com.example.mealapp"
-        minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        signingConfigs {
+            release {
+                storeFile file('C:\\Users\\ASUS\\AndroidStudioProjects\\signatures.jks')
+                storePassword 'android'
+                keyAlias 'key0'
+                keyPassword 'android'
+            }
+        }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
+    compileSdkVersion 31
+        buildToolsVersion "30.0.3"
+
+        defaultConfig {
+            applicationId "com.example.mealapp"
+            minSdkVersion 21
+            targetSdkVersion 31
+            versionCode 1
+            versionName "1.0"
+            multiDexEnabled true
+
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+
+
+
 
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
         }
     }
     compileOptions {
@@ -30,6 +54,8 @@ android {
 
     buildFeatures{
         viewBinding true
+        dataBinding true
+
     }
 }
 
@@ -87,14 +113,17 @@ dependencies {
     implementation "androidx.core:core:1.6.0"
 
 
-//    implementation 'com.google.android.gms:play-services-maps:16.0.0'
-//
-//    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-//    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'com.google.android.gms:play-services-maps:18.0.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.karumi:dexter:6.2.3'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+
+    implementation 'androidx.navigation:navigation-fragment:2.3.3'
+    implementation 'androidx.navigation:navigation-ui:2.3.3'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.1'
 
 
 

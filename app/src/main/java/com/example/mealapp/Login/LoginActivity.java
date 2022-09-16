@@ -34,6 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
@@ -44,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private TextView forgotPassword,signUp,phoneLogin;
     private FirebaseUser user;
+    private String token;
 
 
     @Override
@@ -69,6 +73,17 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
 
+        //get token
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(task.isSuccessful()){
+                    token = task.getResult();
+                }
+            }
+        });
+
+
 
 
 
@@ -76,8 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
 
                 String email = loginEmail.getText().toString();
@@ -121,6 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                                         if(snapshot.exists()){
                                             if(snapshot.child("admin").getValue().equals("true")){
 
+                                                updTok(user.getUid());
+
                                                 //Toast.makeText(LoginActivity.this,"Welcome admin",Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                                 //Toast.makeText(getApplicationContext(),"Admins will be directed to this activity for now",Toast.LENGTH_SHORT).show();
@@ -129,6 +144,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                             else if(snapshot.child("admin").getValue().equals("false")){
+
+                                                updTok(user.getUid());
 
 
                                                 //Toast.makeText(LoginActivity.this,"Welcome user",Toast.LENGTH_SHORT).show();
@@ -290,13 +307,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void updTok(String uid) {
+
+
+        if (user!= null) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", token);
+            databaseReference.updateChildren(map);
+        }
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
-
 
 
 //        if(FirebaseAuth.getInstance().getCurrentUser() != null){

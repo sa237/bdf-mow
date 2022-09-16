@@ -68,15 +68,6 @@ public class DonationActivity extends AppCompatActivity implements PaymentResult
         money_view.setText("Rs. "+ money);
         meal_view.setText("" + meal + " meal");
 
-//        money_view = findViewById(R.id.meal_money);
-//        meal_view = findViewById(R.id.meal_number);
-
-//
-//
-//
-//
-//        money_view.setText(money);
-//        meal_view.setText(meal);
 //
         decreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +79,6 @@ public class DonationActivity extends AppCompatActivity implements PaymentResult
                 else{
                     money = money-60;
                     meal = meal-1;
-
-
                 }
 
                 money_view.setText("Rs. "+ money);
@@ -97,12 +86,7 @@ public class DonationActivity extends AppCompatActivity implements PaymentResult
 
                 amnt = Math.round(money * 100);
 
-            }
-
-
-
-
-        });
+            }});
 
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +117,7 @@ public class DonationActivity extends AppCompatActivity implements PaymentResult
                 Checkout checkout = new Checkout();
 
                 //Set key id
-                checkout.setKeyID("rzp_test_qmxZCIZtCTFSS7");
+                checkout.setKeyID("rzp_live_WSiKiTYffwOMjc");
 
                 //Set image
                 checkout.setImage(R.drawable.razorpay_logo);
@@ -146,7 +130,7 @@ public class DonationActivity extends AppCompatActivity implements PaymentResult
                     object.put("name","Building Dreams Foundation");
 
                     //put description
-                    object.put("description","Test Payment");
+                    object.put("description","Payments");
 
                     //Put theme color
                     object.put("theme.color","#0093DD");

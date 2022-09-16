@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealapp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -50,6 +52,7 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
         holder.mDates.setText("Date: " + userPickupsObjectList.get(position).getDate());
         holder.mFood.setText("Username: "+ userPickupsObjectList.get(position).getFood());
         holder.mNoOfMeals.setText("Number of Meals: " + userPickupsObjectList.get(position).getNoOfMeals());
+        holder.mFoodItems.setText("Food Items: " + userPickupsObjectList.get(position).getFoodItems());
         holder.mId.setText("UserId: " + userPickupsObjectList.get(position).getId());
         holder.mLocation.setText("Location: " + userPickupsObjectList.get(position).getLocation());
 
@@ -63,7 +66,7 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView mDates,mFood,mNoOfMeals, mId,mLocation;
+        public TextView mDates,mFood,mNoOfMeals, mId,mFoodItems,mLocation;
 
         public MyViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -71,6 +74,7 @@ public class UserPickupsAdapter extends RecyclerView.Adapter<UserPickupsAdapter.
             mDates = (TextView) itemView.findViewById(R.id.user_pickup_date);
             mFood = (TextView) itemView.findViewById(R.id.user_pickup_food);
             mNoOfMeals = (TextView) itemView.findViewById(R.id.user_pickup_number_meals);
+            mFoodItems = (TextView) itemView.findViewById(R.id.user_pickup_food_items);
             mId = (TextView) itemView.findViewById(R.id.user_userId);
             mLocation = (TextView) itemView.findViewById(R.id.user_location);
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealapp.Acceptances.ChatsViewActivity;
 import com.example.mealapp.Pickup.AcceptanceActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.UserProfile;
@@ -40,7 +41,7 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
     private TextView noUserPickupText;
     private RecyclerView.Adapter mPickupsAdapter;
     private RecyclerView.LayoutManager mPickupsLayoutManager;
-    private String date , userName,noOfMeals,id,location;
+    private String date , userName,noOfMeals,id,location,foodItems;
     private String userIdForIntent;
     private Date dateFormat;
 
@@ -108,10 +109,15 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
                             FetchUserPickupInfo(dataSnapshot.getKey());
 
                         }
+
                     }
 
 
-                }}
+                }
+
+
+            }
+
 
 
 
@@ -135,6 +141,7 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
+                    noUserPickupText.setVisibility(View.GONE);
                     for(DataSnapshot dsnForEveryPickup : snapshot.getChildren()){
                         getDataFromDb(userId,dsnForEveryPickup.getKey());
                     }
@@ -150,53 +157,12 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
             }
         });
-
-//        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(key).child("pickups");
-//
-//        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if(snapshot.exists() && snapshot.getChildrenCount() > 0){
-//                    userIdForIntent = key;
-//
-//                    for(DataSnapshot ds: snapshot.getChildren()){
-//                        //String date = ds.getKey();
-//                        //System.out.println(ds.getKey());
-//
-//                        getDataFromDb(key,ds.getKey());
-//
-//                    }
-//
-//
-//                }
-//
-//                else{
-//
-//                    noUserPickupText.setVisibility(View.VISIBLE);
-//                    noUserPickupText.setText("No pickups ordered yet.");
-//
-//                    //Toast.makeText(UserPickupsActivity.this, "No payments made yet. ", Toast.LENGTH_SHORT).show();
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-
     }
 
     private void getDataFromDb(String keyUser, String keyDate) {
 
 
-//        date = keyDate;
-//        id = keyUser;
+
         try {
             dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(keyDate);
         } catch (ParseException e) {
@@ -211,11 +177,12 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
 
                     userName = snapshot.child("name").getValue().toString();
                     noOfMeals = snapshot.child("pickups").child(keyDate).child("numberOfMeals").getValue().toString();
+                    foodItems = snapshot.child("pickups").child(keyDate).child("food").getValue().toString();
                     location = snapshot.child("pickups").child(keyDate).child("location").getValue().toString();
 //                    latitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("latitude").getValue().toString();
 //                    longitudeForIntent = snapshot.child("pickups").child(keyDate).child("location").child("longitude").getValue().toString();
 
-                    UserPickupsObject object = new UserPickupsObject(keyDate,noOfMeals,userName,keyUser,location);
+                    UserPickupsObject object = new UserPickupsObject(keyDate,noOfMeals,userName,keyUser,location,foodItems);
                     resultPickups.add(object);
 
 
@@ -322,7 +289,9 @@ public class UserPickupsActivity extends AppCompatActivity implements RecyclerVi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Toast.makeText(UserPickupsActivity.this, "The request has been accepted/rejected.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserPickupsActivity.this, "The request has already been accepted/rejected.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), ChatsViewActivity.class));
+                    finish();
                 }
 
                 else{

@@ -9,13 +9,15 @@ public class UserPickupsObject {
     private String food;
     private String id;
     private String location;
+    private String foodItems;
 
-    public UserPickupsObject(String date,String noOfMeals, String food,String id,String location){
+    public UserPickupsObject(String date,String noOfMeals, String food,String id,String location,String foodItems){
         this.date = date;
         this.noOfMeals = noOfMeals;
         this.food = food;
         this.id = id;
         this.location = location;
+        this .foodItems = foodItems;
     }
 
     public String getNoOfMeals() { return noOfMeals; }
@@ -46,8 +48,9 @@ public class UserPickupsObject {
 
     public String getLocation() { return location; }
 
+    public String getFoodItems() { return foodItems; }
 
-
+    public void setFoodItems(String foodItems) { this.foodItems = foodItems; }
 }
 
 

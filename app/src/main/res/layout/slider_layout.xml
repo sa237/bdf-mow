@@ -13,7 +13,6 @@
         android:id="@+id/titleImage"
         android:layout_width="270dp"
         android:layout_height="350dp"
-        android:src="@drawable/pic1"
         android:clipToOutline="true"
         android:background="@drawable/layout_bg"
         android:layout_marginLeft="30dp"

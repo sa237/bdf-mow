@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="username"
+            type="String" />
+
+        <variable
+            name="activity"
+            type="com.example.mealapp.chatss.ChatsActivity" />
+    </data>
+
+
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".chatss.ChatsActivity">
+
+    <include
+        android:id="@+id/message_tb"
+        bind:activity="@{activity}"
+        bind:username="@{username}"
+        layout="@layout/message_toolbar"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMessage"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/msgData"
+        android:layout_below="@id/message_tb"/>
+
+    <LinearLayout
+        android:id="@+id/msgData"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/messageTextEditText"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:padding="@dimen/dimen_8dp"
+            android:layout_marginStart="3dp"
+            android:inputType="textCapSentences"
+            android:layout_marginEnd="3dp"
+            android:paddingStart="@dimen/dimen_10dp"
+            android:background="@drawable/message_edittext_background"
+            android:layout_weight="1.6"
+            android:hint="Write message..."/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:id="@+id/checkbtn"
+            android:layout_weight=".1"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/ic_check"/>
+
+
+        <ImageView
+            android:id="@+id/deletebtn"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight=".1"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/ic__delete"/>
+
+
+        <ImageView
+            android:id="@+id/sendbtn"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight=".2"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_send"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+</layout>
+

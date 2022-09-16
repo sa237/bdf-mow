@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <EditText
         android:id="@+id/registerName"
@@ -161,10 +161,10 @@
         android:id="@+id/or_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="OR"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@id/registerButton"
         app:layout_constraintEnd_toEndOf="@+id/registerButton"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
@@ -174,7 +174,7 @@
         android:id="@+id/reg_admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:text="Register as admin"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -183,17 +183,31 @@
         app:layout_constraintEnd_toEndOf="@+id/registerButton"
         app:layout_constraintTop_toBottomOf="@+id/or_register" />
 
+
+    <TextView
+        android:id="@+id/reg_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Register using phone"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/registerButton"
+        app:layout_constraintEnd_toEndOf="@+id/registerButton"
+        app:layout_constraintTop_toBottomOf="@+id/reg_admin" />
+
     <TextView
         android:id="@+id/alreadyHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:shadowColor="@color/white"
         android:text="Already have an account?"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/registerButton"
         app:layout_constraintStart_toStartOf="@id/registerButton"
-        app:layout_constraintTop_toBottomOf="@id/reg_admin"/>
+        app:layout_constraintTop_toBottomOf="@id/reg_phone_number"/>
 
 
 

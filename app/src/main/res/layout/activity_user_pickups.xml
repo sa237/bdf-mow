@@ -18,8 +18,8 @@
         android:layout_marginStart="@dimen/dimen_10dp"
         android:layout_marginEnd="@dimen/dimen_10dp"
         android:textColor="@color/pastel_blue"
-        android:textSize="25dp"
-        android:visibility="gone" />
+        android:textSize="20dp"
+        android:text="No pickups as of now."/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

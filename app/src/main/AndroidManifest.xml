@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -23,18 +24,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".PrivacyPolicyActivity"></activity>
+        <activity android:name=".chatss.ChatsActivity"
+            android:exported="false"/>
+        <activity android:name=".PrivacyPolicyActivity"
+            android:exported="false"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBcenPHGtjkL_FQJWUOdgxmgvNoBi74XyE" />
 
-        <activity android:name=".Chat.ChatActivity" />
-        <activity android:name=".Acceptances.ChatsViewActivity" />
-        <activity android:name=".UserPickup.UserPickupsActivity" />
-        <activity android:name=".Pickup.UserLocationActivity" />
-        <activity android:name=".Pickup.PickupFormActivity" />
-        <activity android:name=".Pickup.ViewMapActivity" />
+        <activity android:name=".Acceptances.ChatsViewActivity"
+            android:exported="false"/>
+        <activity android:name=".UserPickup.UserPickupsActivity"
+            android:exported="false"/>
+        <activity android:name=".Pickup.PickupFormActivity"
+            android:exported="false"/>
+        <activity android:name=".Pickup.ViewMapActivity"
+            android:exported="false"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -44,40 +50,53 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".Pickup.AcceptanceActivity" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".Pickup.MealPickupMain" />
-        <activity android:name=".Donation.PaymentActivity" />
-        <activity android:name=".Donation.DonationActivity" />
-        <activity android:name=".OnboardingMainActivity" />
+        <activity android:name=".Pickup.AcceptanceActivity"
+            android:exported="false"/>
+        <activity android:name=".AboutUsActivity"
+            android:exported="false"/>
+        <activity android:name=".Pickup.MealPickupMain"
+            android:exported="false"/>
+        <activity android:name=".Donation.PaymentActivity"
+            android:exported="false"/>
+        <activity android:name=".Donation.DonationActivity"
+            android:exported="false"/>
+        <activity android:name=".OnboardingMainActivity"
+            android:exported="false"/>
         <activity
             android:name=".SplashActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.PhoneLoginActivity" />
-        <activity android:name=".Login.OtpVerificationActivity" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".Registration.AdminRegistrationActivity" />
-        <activity android:name=".Registration.VerificationActivity" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Registration.RegistrationActivity" />
-        <activity android:name=".Main.MainActivity" />
+        <activity android:name=".Login.PhoneLoginActivity"
+            android:exported="false"/>
+        <activity android:name=".Login.OtpVerificationActivity"
+            android:exported="false"/>
+        <activity android:name=".ResetPasswordActivity"
+            android:exported="false"/>
+        <activity android:name=".Registration.AdminRegistrationActivity"
+            android:exported="false"/>
+        <activity android:name=".Registration.VerificationActivity"
+            android:exported="false"/>
+        <activity android:name=".UserProfile"
+            android:exported="false"/>
+        <activity android:name=".Login.LoginActivity"
+            android:exported="false"/>
+        <activity android:name=".Registration.RegistrationActivity"
+            android:exported="false"/>
+        <activity android:name=".Main.MainActivity"
+            android:exported="false"/>
 
         <service
-            android:name=".Pickup.FirebaseMessagingService"
-            android:permission="TODO"
-            tools:ignore="ExportedService">
+            android:name=".chatss.FirebaseNotificationService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name=".Pickup.UserLocationActivity" />
     </application>
 
 </manifest>

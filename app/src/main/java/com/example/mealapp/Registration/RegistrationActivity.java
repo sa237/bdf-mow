@@ -1,6 +1,8 @@
 package com.example.mealapp.Registration;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealapp.AsteriskPasswordTransformationMethod;
 import com.example.mealapp.Login.LoginActivity;
+import com.example.mealapp.Login.PhoneLoginActivity;
 import com.example.mealapp.Main.MainActivity;
 import com.example.mealapp.Pickup.MealPickupMain;
 import com.example.mealapp.R;
@@ -35,10 +38,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText registerName, registerEmail, registerPassword, registerConfPassword;
     private Button registerBtn;
     private FirebaseAuth mAuth;
-    private TextView alreadyAccount,adminRegister;
+    private TextView alreadyAccount,adminRegister,phoneRegister;
     private String token;
     private CountryCodePicker ccpForEmail;
     private EditText phoneNo;
+    private SharedPreferences.Editor sharedPreferences;
 
 
 
@@ -57,9 +61,11 @@ public class RegistrationActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerButton);
         alreadyAccount = findViewById(R.id.alreadyHaveAccount);
         adminRegister = findViewById(R.id.reg_admin);
+        phoneRegister = findViewById(R.id.reg_phone_number);
         phoneNo = (EditText) findViewById(R.id.mobileno_email);
         ccpForEmail = (CountryCodePicker) findViewById(R.id.ccp_email);
         ccpForEmail.registerCarrierNumberEditText(phoneNo);
+        sharedPreferences = getBaseContext().getSharedPreferences("UserData",MODE_PRIVATE).edit();
 
         //to replace password with *
 
@@ -74,26 +80,16 @@ public class RegistrationActivity extends AppCompatActivity {
         //Database variables
         mAuth = FirebaseAuth.getInstance();
 
-        //get the token of the user
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        token = task.getResult();
-
-//                        // Log and toast
-//                        System.out.println(token);
-//                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        //get token
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(task.isSuccessful()){
+                    token = task.getResult();
+                }
+            }
+        });
 
 
 
@@ -144,12 +140,16 @@ public class RegistrationActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+
+
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("admin", "false");
                             userInfo.put("phoneNumber",ccpForEmail.getFullNumberWithPlus().replace(" ",""));
-                            userInfo.put("token",token);
+                            userInfo.put("token", token);
                             currentUserDb.updateChildren(userInfo);
+                            sharedPreferences.putString("username",name).apply();
 
 
                             startActivity(new Intent(getApplicationContext(), VerificationActivity.class));
@@ -207,6 +207,13 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), AdminRegistrationActivity.class));
+            }
+        });
+
+        phoneRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), PhoneLoginActivity.class));
             }
         });
 

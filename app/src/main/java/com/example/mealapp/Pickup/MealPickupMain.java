@@ -61,121 +61,8 @@ public class MealPickupMain extends AppCompatActivity {
 
                     startActivity(new Intent(getApplicationContext(),ViewMapActivity.class));
 
-
-
-
-
             }
         });
-
-
-
-
-
-
-
-//        FirebaseMessaging.getInstance().subscribeToTopic("all");
-//
-//        //messaging push notifications
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (!task.isSuccessful()) {
-//                            System.out.println("Fetching FCM registration token failed");
-//                            return;
-//                        }
-//
-//                        // Get new FCM registration token
-//                        String token = task.getResult();
-//
-//                        // Log and toast
-//                        System.out.println(token);
-//                        Toast.makeText(MealPickupMain.this, token, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
-
-
-
-
-
-//        connectToAdmin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //temporarily placing this here
-//                Toast.makeText(MealPickupMain.this, "Your pickup request has been sent to the admin. The admin will accept/ reject the request within 10 minutes.", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(getApplicationContext(), PickupFormActivity.class));
-//
-//
-////                if(!name.getText().toString().isEmpty()){
-////
-////
-////
-////
-////                    userDb.addValueEventListener(new ValueEventListener() {
-////                        @Override
-////                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-////
-////                            if(snapshot.exists()){
-////                                for(DataSnapshot childSnapshot: snapshot.getChildren()){
-////                                    if(childSnapshot.child("admin").getValue().equals("true")){
-////
-////                                        String token = childSnapshot.child("token").getValue().toString();
-////
-////                                        if(!token.isEmpty()){
-////
-////                                            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token,name.getText().toString(),"New user has sent a request for meal pickup.",getApplicationContext(),MealPickupMain.this);
-////                                            notificationsSender.SendNotifications();
-////
-////                                            Toast.makeText(MealPickupMain.this, "Your pickup request has been sent to the admin. The admin will accept/ reject the request within 10 minutes.", Toast.LENGTH_SHORT).show();
-////                                            startActivity(new Intent(getApplicationContext(),PickupFormActivity.class));
-////                                            finish();
-////
-////
-////                                        }
-////
-////
-////
-////
-////
-////
-////
-////                                    }
-////
-////                                }
-////
-////
-////                            }
-////
-////                        }
-////
-////                        @Override
-////                        public void onCancelled(@NonNull DatabaseError error) {
-////
-////                        }
-////                    });
-////
-////                }
-////                else{
-////
-////                    Toast.makeText(MealPickupMain.this, "Please enter your name.", Toast.LENGTH_SHORT).show();
-////                }
-//
-//
-//
-//
-//
-//
-//
-//            }
-//        });
-
-
-
-
 
 
 
@@ -192,7 +79,7 @@ public class MealPickupMain extends AppCompatActivity {
             case R.id.rb2:
             case R.id.rb3:
                 if(checked){
-                    Toast.makeText(this, "Field chosen", Toast.LENGTH_SHORT).show();
+                    //do nothing
                 }
                 break;
             case R.id.rb4:

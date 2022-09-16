@@ -25,9 +25,9 @@ import android.widget.Toast;
 
 import com.example.mealapp.AboutUsActivity;
 import com.example.mealapp.Acceptances.ChatsViewActivity;
+import com.example.mealapp.BuildConfig;
 import com.example.mealapp.Donation.DonationActivity;
 import com.example.mealapp.Login.LoginActivity;
-import com.example.mealapp.Pickup.UserLocationActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.UserProfile;
 import com.google.android.material.navigation.NavigationView;
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         modelArrayList.add(new MyModel("Donate Money for Meals",
                 "Thousands of people in India go to sleep hungry everyday.Help them by donating only Rs.60 for a basic meal per person.",
                 "Donate meals now",
-                R.drawable.pic1));
+                R.drawable.mainslider1));
 
         modelArrayList.add(new MyModel("Subscribe Monthly",
                 "Get a basic monthly subscription to be regular with your donations.",
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         modelArrayList.add(new MyModel("Leftover Meal Pickup",
                 "Threw a party and have leftover food? Make someone's day by donating the food to us. We'll make sure to deliver it fresh.",
                 "Set meal pickup now",
-                R.drawable.pic3));
+                R.drawable.mainslider3));
 
 //        recyclerAdapter = new RecyclerAdapter(this,modelArrayList);
 //        viewPager.setAdapter(recyclerAdapter);
@@ -301,63 +301,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu,menu);
-//
-//        return true;
-//
-//    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if(id == R.id.user_profile){
-//            startActivity(new Intent(MainActivity.this, UserProfile.class));
-//            finish();
-//        }
-//
-//        if(id == R.id.donate_meal_menu){
-//            startActivity(new Intent(MainActivity.this, DonationActivity.class));
-//            finish();
-//        }
-//
-//        if(id == R.id.about_us_menu){
-//
-//            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-//            finish();
-//        }
-//
-//        if(id == R.id.share_menu){
-//
-//            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//            sharingIntent.setType("text/plain");
-//            String shareBody = "Share the app with your friends and family.";
-//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share now");
-//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//            startActivity(Intent.createChooser(sharingIntent, "Share via"));
-//
-//
-//        }
-//
-//
-//
-//        if(id == R.id.user_logout){
-//
-//            FirebaseAuth.getInstance().signOut();
-//            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//            finish();
-//
-//        }
-//
-//
-//        return true;
-//
-//
-//
-//
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -392,12 +336,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == R.id.share_menu){
 
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setType("text/plain");
-            String shareBody = "Share the app with your friends and family.";
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share now");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            try{
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT,"AAHAAR");
+                String shareMessage = "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                shareIntent.putExtra(Intent.EXTRA_TEXT,shareMessage);
+                startActivity(Intent.createChooser(shareIntent,"choose one"));
+
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+
+
+
+//            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            sharingIntent.setType("text/plain");
+//            String shareBody = "Share the app with your friends and family.";
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share now");
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//            startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
 
         }

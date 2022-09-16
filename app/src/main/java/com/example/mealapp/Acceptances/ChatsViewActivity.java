@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mealapp.Chat.ChatActivity;
+import com.example.mealapp.chatss.ChatsActivity;
 import com.example.mealapp.R;
 import com.example.mealapp.UserProfile;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +54,7 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-        currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         currentUserDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,7 +76,21 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
         });
+        
+//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+//            @Override
+//            public void onComplete(@NonNull Task<String> task) {
+//                if(task.isSuccessful()){
+//                    token = task.getResult();
+//                    saveToken(token);
+//                }
+//            }
+//
+//
+//        });
 
 
 
@@ -85,29 +99,70 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
 //        chatViewAdapter = new ChatViewAdapter(this,chatViewObjectArrayList);
 //        chatRecyclerView.setAdapter(chatViewAdapter);
 //        chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
+//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+//                return@OnCompleteListener
+//            }
+//
+//            // Get new FCM registration token
+//            val token = task.result
+//        })
 
 
     }
 
+//    private void saveToken(String token) {
+//        userIdForToken = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Tokens").child(userIdForToken);
+//        Map userInfo = new HashMap<>();
+//        userInfo.put("token", token);
+//        currentUserDb.updateChildren(userInfo);
+//
+//    }
+
     private void AddInfoToUserRecycler() {
 
-        currentUserDb.addListenerForSingleValueEvent(new ValueEventListener() {
+        //check if the user is present in the ChatList
+
+        DatabaseReference dbRefForUser = FirebaseDatabase.getInstance().getReference("ChatList").child(currentUserId);
+        dbRefForUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("chat").exists() && snapshot.child("chat").getChildrenCount() > 0){
+                if(snapshot.exists()){
                     getAdminInfo();
+                }
+                else{
+                    noChatText.setVisibility(View.VISIBLE);
+                    noChatText.setText("No chats available.");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                noChatText.setVisibility(View.VISIBLE);
-                noChatText.setText("No chats. No requests have been accepted yet.");
 
             }
         });
+
+
+//        currentUserDb.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.child("chat").exists() && snapshot.child("chat").getChildrenCount() > 0){
+//                    getAdminInfo();
+//                }
+//                else{
+//                    noChatText.setVisibility(View.VISIBLE);
+//                    noChatText.setText("No chats for now.");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//
+//            }
+//        });
 
 //        DatabaseReference userChatCheck = currentUserDb.child("chat");
 //        userChatCheck.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -161,11 +216,11 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     if(snapshot.child("admin").getValue().toString().equals("true")){
-                        mId = currentUserId;
+                        mId = key;
                         mName = snapshot.child("name").getValue().toString();
-                        mNumber = snapshot.child("phoneNumber").getValue().toString();
+                        //mNumber = null;
 
-                        ChatViewObject obj = new ChatViewObject(mNumber,mName,mId);
+                        ChatViewObject obj = new ChatViewObject(null,mName,mId);
                         resultChats.add(obj);
                         chatViewAdapter.notifyDataSetChanged();
 
@@ -186,61 +241,87 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
 
     private void AddInfoToRecycler() {
 
-        DatabaseReference dbr = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference dbRefForAdmin = FirebaseDatabase.getInstance().getReference("ChatList");
 
-        dbr.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRefForAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
-                    for(DataSnapshot dsn: snapshot.getChildren()){
-                        getChats(dsn.getKey());
+                    for(DataSnapshot ds: snapshot.getChildren()){
+                        if(!ds.getKey().equals(currentUserId)){
+                            getInfo(ds.getKey());
+                        }
+
                     }
 
+                }
+                else{
+                    noChatText.setVisibility(View.VISIBLE);
+                    noChatText.setText("No chats available.");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(ChatsViewActivity.this, "problem", Toast.LENGTH_SHORT).show();
-
             }
         });
+
+//        DatabaseReference dbr = FirebaseDatabase.getInstance().getReference().child("Users");
+//
+//        dbr.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists() && snapshot.getChildrenCount() > 0){
+//                    for(DataSnapshot dsn: snapshot.getChildren()){
+//                        getChats(dsn.getKey());
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                Toast.makeText(ChatsViewActivity.this, "problem", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
     }
 
-    private void getChats(String key) {
-
-        DatabaseReference dbR = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
-
-        dbR.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    //check if admin
-                    if(snapshot.child("admin").getValue().toString().equals("true")){
-                        DatabaseReference dbAdm = FirebaseDatabase.getInstance().getReference().child("Users").child(key).child("acceptances");
-
-                        dbAdm.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists() && snapshot.getChildrenCount() > 0){
-                                    for(DataSnapshot idChild: snapshot.getChildren()){
-                                        getInfo(idChild.getKey());
-                                    }
-
-                                }
-                                else{
-
-                                    noChatText.setVisibility(View.VISIBLE);
-                                    noChatText.setText("No chats.You haven't accepted any requests yet.");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) { }}); } } }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }}); }
+//    private void getChats(String key) {
+//
+//        DatabaseReference dbR = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+//
+//        dbR.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()){
+//                    //check if admin
+//                    if(snapshot.child("admin").getValue().toString().equals("true")){
+//                        DatabaseReference dbAdm = FirebaseDatabase.getInstance().getReference().child("Users").child(key).child("acceptances");
+//
+//                        dbAdm.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if(snapshot.exists() && snapshot.getChildrenCount() > 0){
+//                                    for(DataSnapshot idChild: snapshot.getChildren()){
+//                                        getInfo(idChild.getKey());
+//                                    }
+//
+//                                }
+//                                else{
+//
+//                                    noChatText.setVisibility(View.VISIBLE);
+//                                    noChatText.setText("No chats.You haven't accepted any requests yet.");
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) { }}); } } }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) { }}); }
 
 
 
@@ -290,10 +371,21 @@ public class ChatsViewActivity extends AppCompatActivity implements ChatRecycler
 
     @Override
     public void onChatClick(int position) {
-        Intent chatIntent = new Intent(getApplicationContext() , ChatActivity.class);
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+resultChats.get(position).getNumber()));//change the number
+        startActivity(callIntent);
+
+
+
+    }
+
+    @Override
+    public void onNameClick(int position) {
+
+        Intent chatIntent = new Intent(getApplicationContext() , ChatsActivity.class);
         chatIntent.putExtra("userId" , resultChats.get(position).getId());
         startActivity(chatIntent);
-
 
     }
 }

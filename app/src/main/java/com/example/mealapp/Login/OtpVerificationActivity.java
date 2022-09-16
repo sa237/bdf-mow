@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealapp.Main.MainActivity;
@@ -37,6 +38,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String otpId;
     private String token;
+    private TextView resendOtp;
 
 
 
@@ -47,6 +49,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
         otpText = (EditText) findViewById(R.id.OtpTxt);
         verifyOtp = (Button) findViewById(R.id.verifyOtpBtn);
+        resendOtp = (TextView) findViewById(R.id.resend_otp);
         number = getIntent().getStringExtra("number").toString();
         name = getIntent().getStringExtra("name").toString();
         mAuth = FirebaseAuth.getInstance();
@@ -65,10 +68,6 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
                         // Get new FCM registration token
                         token = task.getResult();
-
-//                        // Log and toast
-//                        System.out.println(token);
-//                        Toast.makeText(RegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -96,6 +95,13 @@ public class OtpVerificationActivity extends AppCompatActivity {
                     signInWithPhoneAuthCredential(credential);
                 }
 
+            }
+        });
+
+        resendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initiateOtp();
             }
         });
 
@@ -174,6 +180,8 @@ public class OtpVerificationActivity extends AppCompatActivity {
                                 userInfo.put("token",token);
                                 currentUserDb.updateChildren(userInfo);
 
+                                updTok(userId);
+
 
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
@@ -203,6 +211,18 @@ public class OtpVerificationActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+
+    private void updTok(String uid) {
+        
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", token);
+            databaseReference.updateChildren(map);
+        }
     }
 
 

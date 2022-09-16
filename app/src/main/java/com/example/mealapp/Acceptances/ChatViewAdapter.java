@@ -35,27 +35,33 @@ public class ChatViewAdapter extends RecyclerView.Adapter<ChatViewAdapter.Myview
         MyviewHolder chatviewHolders = new MyviewHolder(lv,chatRecyclerInterface);
          return chatviewHolders;
 
-//        LayoutInflater inf = LayoutInflater.from(context);
-//        View v = inf.inflate(R.layout.item_chat_view,parent,false);
-
-//        View view = LayoutInflater.from(context).inflate(R.layout.item_chat_view,parent,false);
-//        RecyclerView.LayoutParams layPar = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        view.setLayoutParams(layPar);
-//        MyviewHolder chatViewHolder = new MyviewHolder(view);
-
-
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        View view = inflater.inflate(R.layout.item_chat_view,parent,false);
-
-//        return new ChatViewAdapter.MyviewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewAdapter.MyviewHolder holder, int position) {
 
+        if(chatViewObjectArrayList.get(position).getNumber() != null){
+            holder.mNumber.setVisibility(View.VISIBLE);
+        }
+
         holder.mName.setText("Name: " + chatViewObjectArrayList.get(position).getName());
         holder.mNumber.setText("Contact No: " + chatViewObjectArrayList.get(position).getNumber());
         holder.mId.setText("Id: " + chatViewObjectArrayList.get(position).getId());
+
+        holder.mChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chatRecyclerInterface.onNameClick(position);
+            }
+        });
+
+        holder.mNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chatRecyclerInterface.onChatClick(position);
+
+            }
+        });
 
 
 
@@ -67,7 +73,7 @@ public class ChatViewAdapter extends RecyclerView.Adapter<ChatViewAdapter.Myview
     }
 
     public static class MyviewHolder  extends RecyclerView.ViewHolder{
-        public TextView mNumber, mName , mId;
+        public TextView mNumber, mName , mId, mChatButton;
 
         public MyviewHolder(@NonNull View itemView , ChatRecyclerInterface chatRecyclerInterface) {
             super(itemView);
@@ -75,23 +81,38 @@ public class ChatViewAdapter extends RecyclerView.Adapter<ChatViewAdapter.Myview
             mNumber = itemView.findViewById(R.id.number_for_chat);
             mName = itemView.findViewById(R.id.name_for_chat);
             mId = itemView.findViewById(R.id.id_for_chat);
+            mChatButton = itemView.findViewById(R.id.chatnowbutton);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+//            mNumber.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if(chatRecyclerInterface != null){
+//                        int pos = getAdapterPosition();
+//
+//                        if(pos != RecyclerView.NO_POSITION){
+//                            chatRecyclerInterface.onChatClick(pos);
+//                        }
+//
+//                    }
+//                }
+//            });
 
-                    if(chatRecyclerInterface != null){
-
-                        int pos = getAdapterPosition();
-
-                        if(pos != RecyclerView.NO_POSITION){
-
-                            chatRecyclerInterface.onChatClick(pos);
-
-                        }
-                    }
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    if(chatRecyclerInterface != null){
+//
+//                        int pos = getAdapterPosition();
+//
+//                        if(pos != RecyclerView.NO_POSITION){
+//
+//                            chatRecyclerInterface.onChatClick(pos);
+//
+//                        }
+//                    }
+//                }
+//            });
 
         }
 

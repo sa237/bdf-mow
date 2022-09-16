@@ -61,29 +61,15 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         adminConfPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
 
-
-
-
-        //get token of the user
-
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(AdminRegistrationActivity.this, "Token fetching failed.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        token = task.getResult();
-
-//                        // Log and toast
-//                        System.out.println(token);
-//                        Toast.makeText(AdminRegistrationActivity.this, token, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        //get token
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(task.isSuccessful()){
+                    token = task.getResult();
+                }
+            }
+        });
 
 
 
@@ -144,11 +130,14 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             String userId = fAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+
+
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("admin", "true");
-                            userInfo.put("token", token);
                             userInfo.put("phoneNumber",ccpForAdmin.getFullNumberWithPlus().replace(" ",""));
+                            userInfo.put("token", token);
                             currentUserDb.updateChildren(userInfo);
 
 

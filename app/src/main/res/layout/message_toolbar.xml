@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="username"
+            type="String" />
+
+        
+        <variable
+            name="activity"
+            type="com.example.mealapp.chatss.ChatsActivity" />
+
+    </data>
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="@color/pastel_blue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/msg_back"
+            android:layout_width="wrap_content"
+            android:onClick="@{()->activity.onBackPressed()}"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:id="@+id/msg_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{username}"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"/>
+
+
+
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>
+
+</layout>

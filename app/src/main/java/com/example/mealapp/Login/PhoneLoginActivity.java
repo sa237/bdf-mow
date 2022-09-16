@@ -19,7 +19,6 @@ public class PhoneLoginActivity extends AppCompatActivity {
     private Button getOtp;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,22 +31,33 @@ public class PhoneLoginActivity extends AppCompatActivity {
         ccp = (CountryCodePicker) findViewById(R.id.ccp);
         ccp.registerCarrierNumberEditText(phoneNumber);
 
-        if(userName.getText().toString().isEmpty()){
-            Toast.makeText(this, "Enter a username.", Toast.LENGTH_SHORT).show();
-        }
 
-        if(phoneNumber.getText().toString().isEmpty()){
 
-            Toast.makeText(this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
-        }
+
         getOtp.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PhoneLoginActivity.this, OtpVerificationActivity.class);
-                intent.putExtra("number",ccp.getFullNumberWithPlus().replace(" ",""));
-                intent.putExtra("name",userName.getText().toString());
-                startActivity(intent);
+                String mUserName = userName.getText().toString();
+                String mPhoneNumber = phoneNumber.getText().toString();
+
+                if(mUserName.isEmpty()){
+                    userName.setError("Enter a username.");
+                }
+                if(mPhoneNumber.isEmpty()){
+                    phoneNumber.setError("Please enter a valid phone number.");
+                }
+                else{
+
+                    Intent intent = new Intent(PhoneLoginActivity.this, OtpVerificationActivity.class);
+                    intent.putExtra("number",ccp.getFullNumberWithPlus().replace(" ",""));
+                    intent.putExtra("name",userName.getText().toString());
+                    startActivity(intent);
+
+                }
+
+
 
 
 
